@@ -14,13 +14,13 @@ function Entity:setType(type)
 	self.type = type
 end
 
-function Entity:addComponent(component)
+function Entity:add(component)
 	table.insert(self.components, component)
 	component.uniqueid = self.componentUniqueId
 	self.componentUniqueId = self.componentUniqueId + 1
 end
 
-function Entity:removeComponent(component)
+function Entity:remove(component)
 	self:removeComponentById(component.uniqueid)
 end
 
@@ -34,7 +34,7 @@ end
 
 function Entity:getComponent(name)
 	for _,v in pairs(self.components) do
-		if v.name == name then
+		if v.class.name == name then
 			return v
 		end
 	end

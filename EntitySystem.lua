@@ -106,6 +106,20 @@ function EntitySystem:sort(func)
     )
 end
 
+function EntitySystem:mousepressed(x,y,k,type)
+	type = type or "all"
+	for i=#self.entities,1,-1 do
+		local v = self.entities[i]
+		if type == "all" or v.type == type then
+			if not v.alpha or v.alpha and v.alpha > 0 then
+				if v:mousepressed(x,y,k) then
+					return v
+				end
+			end
+		end
+	end
+end
+
 --takes a love2d random number generator and then shuffles entities using it
 function EntitySystem:shuffleEntities(RG)
 	local function shuffle(array)
